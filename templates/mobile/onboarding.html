@@ -1,0 +1,445 @@
+{% extends "mobile/base.html" %}
+
+{% block title %}Welcome to Repli{% endblock %}
+
+{% block bottom_nav %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen">
+    <!-- Onboarding Steps -->
+    <div id="onboarding-container" class="relative overflow-hidden">
+        
+        <!-- Step 1: Welcome -->
+        <div id="step-1" class="step-slide gradient-bg min-h-screen flex flex-col text-white px-6 py-12">
+            <div class="flex-1 flex flex-col justify-center text-center">
+                <div class="w-32 h-32 bg-white bg-opacity-20 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-magic text-white text-5xl"></i>
+                </div>
+                
+                <h1 class="text-4xl font-bold mb-4">Welcome to Repli!</h1>
+                <p class="text-xl text-white text-opacity-90 mb-12 leading-relaxed">
+                    Your AI-powered content creation assistant that matches your content with the perfect videos
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center text-left">
+                        <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-brain text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Smart AI Matching</div>
+                            <div class="text-sm text-white text-opacity-80">92% accuracy in video-content pairing</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center text-left">
+                        <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-share-alt text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Multi-Platform Content</div>
+                            <div class="text-sm text-white text-opacity-80">Optimized for TikTok, Instagram, LinkedIn & more</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center text-left">
+                        <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-clock text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">5x Faster Creation</div>
+                            <div class="text-sm text-white text-opacity-80">Create content in minutes, not hours</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 2: How It Works -->
+        <div id="step-2" class="step-slide bg-white min-h-screen flex flex-col px-6 py-12 hidden">
+            <div class="text-center mb-12">
+                <div class="w-24 h-24 bg-indigo-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-cogs text-indigo-600 text-3xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">How Repli Works</h2>
+                <p class="text-gray-600 text-lg">Simple 4-step process to amazing content</p>
+            </div>
+            
+            <div class="flex-1 space-y-8">
+                <div class="flex items-start">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <span class="font-bold text-purple-600">1</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Upload Your Videos</h3>
+                        <p class="text-gray-600">Add your video library. Our AI analyzes mood, style, pace, and visual characteristics automatically.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <span class="font-bold text-blue-600">2</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Create Content</h3>
+                        <p class="text-gray-600">Enter your topic and target platforms. AI generates optimized content matching your unique voice.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <span class="font-bold text-green-600">3</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Smart Matching</h3>
+                        <p class="text-gray-600">AI matches your content with perfect videos based on tone, mood, and platform requirements.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                        <span class="font-bold text-yellow-600">4</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-2">Publish & Grow</h3>
+                        <p class="text-gray-600">Export platform-ready content with editing suggestions and watch your engagement soar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 3: Voice Profile -->
+        <div id="step-3" class="step-slide bg-white min-h-screen flex flex-col px-6 py-12 hidden">
+            <div class="text-center mb-12">
+                <div class="w-24 h-24 bg-green-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-microphone text-green-600 text-3xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Your Unique Voice</h2>
+                <p class="text-gray-600 text-lg">Let's create your first voice profile</p>
+            </div>
+            
+            <div class="flex-1 space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Profile Name</label>
+                    <input 
+                        type="text" 
+                        id="voice-name"
+                        placeholder="e.g., Professional Business Voice"
+                        class="w-full px-4 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Writing Style</label>
+                    <div class="space-y-3">
+                        <button class="voice-style-btn w-full p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-style="professional">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-briefcase text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Professional</div>
+                                    <div class="text-sm text-gray-600">Business-focused, authoritative tone</div>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button class="voice-style-btn w-full p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-style="casual">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-smile text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Casual & Friendly</div>
+                                    <div class="text-sm text-gray-600">Conversational, approachable style</div>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button class="voice-style-btn w-full p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-style="educational">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-graduation-cap text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Educational</div>
+                                    <div class="text-sm text-gray-600">Informative, teaching-focused</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Sample Content (Optional)</label>
+                    <textarea 
+                        rows="4" 
+                        id="sample-content"
+                        placeholder="Paste some of your existing content to help AI learn your style..."
+                        class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                    ></textarea>
+                    <p class="text-sm text-gray-500 mt-2">This helps us match your unique writing style</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 4: Ready to Go -->
+        <div id="step-4" class="step-slide gradient-bg min-h-screen flex flex-col text-white px-6 py-12 hidden">
+            <div class="flex-1 flex flex-col justify-center text-center">
+                <div class="w-32 h-32 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-8">
+                    <i class="fas fa-rocket text-white text-5xl"></i>
+                </div>
+                
+                <h2 class="text-4xl font-bold mb-6">You're All Set!</h2>
+                <p class="text-xl text-white text-opacity-90 mb-12 leading-relaxed">
+                    Ready to create amazing content with AI-powered video matching?
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="bg-white bg-opacity-10 rounded-2xl p-6">
+                        <h3 class="font-bold text-lg mb-4">🎁 Your Free Starter Pack:</h3>
+                        <div class="space-y-2 text-left">
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-300 mr-3"></i>
+                                <span>10 free content generations</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-300 mr-3"></i>
+                                <span>5 video uploads</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-300 mr-3"></i>
+                                <span>Smart AI matching</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check text-green-300 mr-3"></i>
+                                <span>Multi-platform optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        onclick="completeOnboarding()"
+                        class="w-full bg-white text-indigo-600 py-4 rounded-2xl font-bold text-lg shadow-xl hover:bg-opacity-90 active:bg-opacity-80 transition-all"
+                    >
+                        Start Creating Content
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Progress Dots -->
+    <div class="fixed bottom-32 left-0 right-0 flex justify-center space-x-2 z-10">
+        <div class="progress-dot w-2 h-2 bg-white bg-opacity-50 rounded-full transition-all duration-300"></div>
+        <div class="progress-dot w-2 h-2 bg-white bg-opacity-50 rounded-full transition-all duration-300"></div>
+        <div class="progress-dot w-2 h-2 bg-white bg-opacity-50 rounded-full transition-all duration-300"></div>
+        <div class="progress-dot w-2 h-2 bg-white bg-opacity-50 rounded-full transition-all duration-300"></div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="fixed bottom-6 left-6 right-6 flex justify-between items-center z-10">
+        <button 
+            id="skip-btn"
+            onclick="skipOnboarding()" 
+            class="text-white text-opacity-70 font-medium px-4 py-2"
+        >
+            Skip
+        </button>
+        
+        <div class="flex space-x-4">
+            <button 
+                id="prev-btn"
+                onclick="previousSlide()" 
+                class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-white opacity-50 hidden"
+            >
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            
+            <button 
+                id="next-btn"
+                onclick="nextSlide()" 
+                class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-600 shadow-lg"
+            >
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 1;
+    let voiceProfileData = {
+        name: '',
+        style: '',
+        sample: ''
+    };
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        updateSlide();
+        setupEventListeners();
+    });
+    
+    function setupEventListeners() {
+        // Voice style selection
+        document.querySelectorAll('.voice-style-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.voice-style-btn').forEach(b => {
+                    b.classList.remove('border-indigo-500', 'bg-indigo-50');
+                    b.classList.add('border-gray-200');
+                });
+                btn.classList.remove('border-gray-200');
+                btn.classList.add('border-indigo-500', 'bg-indigo-50');
+                voiceProfileData.style = btn.dataset.style;
+            });
+        });
+        
+        // Voice name input
+        document.getElementById('voice-name').addEventListener('input', (e) => {
+            voiceProfileData.name = e.target.value;
+        });
+        
+        // Sample content
+        document.getElementById('sample-content').addEventListener('input', (e) => {
+            voiceProfileData.sample = e.target.value;
+        });
+        
+        // Swipe gestures
+        const hammer = new Hammer(document.getElementById('onboarding-container'));
+        hammer.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+        
+        hammer.on('swipeleft', () => {
+            if (currentSlide < 4) nextSlide();
+        });
+        
+        hammer.on('swiperight', () => {
+            if (currentSlide > 1) previousSlide();
+        });
+    }
+    
+    function nextSlide() {
+        if (currentSlide === 3 && !validateVoiceProfile()) return;
+        
+        if (currentSlide < 4) {
+            currentSlide++;
+            updateSlide();
+        }
+    }
+    
+    function previousSlide() {
+        if (currentSlide > 1) {
+            currentSlide--;
+            updateSlide();
+        }
+    }
+    
+    function updateSlide() {
+        // Hide all slides
+        document.querySelectorAll('.step-slide').forEach(slide => {
+            slide.classList.add('hidden');
+        });
+        
+        // Show current slide
+        document.getElementById(`step-${currentSlide}`).classList.remove('hidden');
+        
+        // Update progress dots
+        document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+            if (index < currentSlide) {
+                dot.classList.remove('bg-opacity-50');
+                dot.classList.add('bg-white');
+            } else {
+                dot.classList.remove('bg-white');
+                dot.classList.add('bg-opacity-50');
+            }
+        });
+        
+        // Update navigation buttons
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const skipBtn = document.getElementById('skip-btn');
+        
+        prevBtn.classList.toggle('hidden', currentSlide === 1);
+        prevBtn.classList.toggle('opacity-50', currentSlide === 1);
+        prevBtn.classList.toggle('opacity-100', currentSlide > 1);
+        
+        if (currentSlide === 4) {
+            nextBtn.classList.add('hidden');
+            skipBtn.classList.add('hidden');
+        } else {
+            nextBtn.classList.remove('hidden');
+            skipBtn.classList.remove('hidden');
+        }
+    }
+    
+    function validateVoiceProfile() {
+        if (!voiceProfileData.name.trim()) {
+            window.mobileApp.showToast('Please enter a profile name', 'error');
+            return false;
+        }
+        
+        if (!voiceProfileData.style) {
+            window.mobileApp.showToast('Please select a writing style', 'error');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    function skipOnboarding() {
+        if (confirm('Are you sure you want to skip the setup? You can always complete it later in settings.')) {
+            completeOnboarding();
+        }
+    }
+    
+    function completeOnboarding() {
+        window.mobileApp.showLoading('Setting up your account...');
+        
+        // Simulate account setup
+        setTimeout(() => {
+            // Save onboarding completion
+            localStorage.setItem('onboarding_completed', 'true');
+            
+            // Save voice profile if created
+            if (voiceProfileData.name && voiceProfileData.style) {
+                localStorage.setItem('default_voice_profile', JSON.stringify(voiceProfileData));
+            }
+            
+            window.mobileApp.hideLoading();
+            window.mobileApp.showToast('Welcome to Repli! 🎉', 'success');
+            
+            setTimeout(() => {
+                window.location.href = '/app/';
+            }, 1500);
+        }, 3000);
+    }
+    
+    // Add entrance animations
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            document.getElementById('step-1').classList.add('slide-enter-active');
+        }, 300);
+    });
+</script>
+
+<style>
+    .step-slide {
+        transition: transform 0.3s ease;
+    }
+    
+    .slide-enter {
+        transform: translateX(100%);
+    }
+    
+    .slide-enter-active {
+        transform: translateX(0);
+    }
+    
+    .slide-exit {
+        transform: translateX(0);
+    }
+    
+    .slide-exit-active {
+        transform: translateX(-100%);
+    }
+</style>
+{% endblock %}

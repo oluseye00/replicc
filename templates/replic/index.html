@@ -1,0 +1,304 @@
+{% extends "repli/base.html" %}
+
+{% block title %}Repli - AI Content Creation with Smart Video Matching{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="gradient-bg py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+            AI-Powered Content Creation
+            <span class="block text-yellow-300">Meets Smart Video Matching</span>
+        </h1>
+        <p class="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+            Transform your content creation with intelligent AI that analyzes your style, generates multi-platform content, 
+            and automatically matches your videos for perfect content packages.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/register/" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105">
+                <i class="fas fa-rocket mr-2"></i>Start Creating Free
+            </a>
+            <a href="#demo" class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-purple-600 transition-all">
+                <i class="fas fa-play mr-2"></i>See How It Works
+            </a>
+        </div>
+        
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto">
+            <div class="text-center">
+                <div class="text-3xl font-bold text-yellow-300">92%</div>
+                <div class="text-gray-200">Match Accuracy</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-yellow-300">5 min</div>
+                <div class="text-gray-200">Average Creation Time</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-yellow-300">5x</div>
+                <div class="text-gray-200">Faster Than Manual</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Why Repli is Different
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Stop spending hours creating content and matching videos. Let AI do the heavy lifting while you focus on what matters most.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Smart Matching -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-brain text-purple-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Smart Video Matching</h3>
+                <p class="text-gray-600 mb-4">
+                    AI analyzes your videos for mood, pace, and style, then matches them with your content for perfect synergy.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>• Visual analysis and mood detection</li>
+                    <li>• Platform-specific recommendations</li>
+                    <li>• 92% accuracy matching score</li>
+                </ul>
+            </div>
+            
+            <!-- Multi-Platform -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-share-alt text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Multi-Platform Content</h3>
+                <p class="text-gray-600 mb-4">
+                    Generate optimized content for TikTok, Instagram, LinkedIn, Twitter, and YouTube from a single topic.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>• Platform-specific optimization</li>
+                    <li>• Voice-matched writing style</li>
+                    <li>• Auto hashtag generation</li>
+                </ul>
+            </div>
+            
+            <!-- Voice Profiles -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-microphone text-green-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Voice Profiles</h3>
+                <p class="text-gray-600 mb-4">
+                    Create consistent, authentic content that matches your unique voice and style across all platforms.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>• AI learns your writing style</li>
+                    <li>• Multiple voice profiles</li>
+                    <li>• Consistent brand voice</li>
+                </ul>
+            </div>
+            
+            <!-- Analytics -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-chart-line text-yellow-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Smart Analytics</h3>
+                <p class="text-gray-600 mb-4">
+                    Track performance, understand what resonates, and optimize your content strategy with AI insights.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>• Performance tracking</li>
+                    <li>• Content optimization tips</li>
+                    <li>• Audience insights</li>
+                </ul>
+            </div>
+            
+            <!-- API Access -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-code text-red-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Developer API</h3>
+                <p class="text-gray-600 mb-4">
+                    Integrate Repli's AI capabilities into your own applications with our comprehensive REST API.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>• RESTful API design</li>
+                    <li>• Comprehensive documentation</li>
+                    <li>• Webhook support</li>
+                </ul>
+            </div>
+            
+            <!-- Team Collaboration -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-users text-indigo-600 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Team Collaboration</h3>
+                <p class="text-gray-600 mb-4">
+                    Work together seamlessly with shared voice profiles, content libraries, and collaborative workflows.
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                    <li>• Shared workspaces</li>
+                    <li>• Role-based permissions</li>
+                    <li>• Team analytics</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="demo" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                How Repli Works
+            </h2>
+            <p class="text-xl text-gray-600">
+                From idea to published content in just 4 simple steps
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                    <i class="fas fa-upload text-purple-600 text-2xl"></i>
+                    <span class="absolute -top-2 -right-2 w-6 h-6 bg-purple-600 text-white rounded-full text-xs flex items-center justify-center font-bold">1</span>
+                </div>
+                <h3 class="font-bold text-lg mb-3">Upload Videos</h3>
+                <p class="text-gray-600">Upload your video library. Our AI analyzes mood, style, pace, and visual characteristics.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                    <i class="fas fa-pencil-alt text-blue-600 text-2xl"></i>
+                    <span class="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center font-bold">2</span>
+                </div>
+                <h3 class="font-bold text-lg mb-3">Generate Content</h3>
+                <p class="text-gray-600">Enter your topic and target platforms. AI creates optimized content matching your voice.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                    <i class="fas fa-magic text-green-600 text-2xl"></i>
+                    <span class="absolute -top-2 -right-2 w-6 h-6 bg-green-600 text-white rounded-full text-xs flex items-center justify-center font-bold">3</span>
+                </div>
+                <h3 class="font-bold text-lg mb-3">Smart Matching</h3>
+                <p class="text-gray-600">AI matches your content with perfect videos based on tone, mood, and platform requirements.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                    <i class="fas fa-rocket text-yellow-600 text-2xl"></i>
+                    <span class="absolute -top-2 -right-2 w-6 h-6 bg-yellow-600 text-white rounded-full text-xs flex items-center justify-center font-bold">4</span>
+                </div>
+                <h3 class="font-bold text-lg mb-3">Publish & Grow</h3>
+                <p class="text-gray-600">Export platform-ready content with editing suggestions and watch your engagement soar.</p>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="text-center mt-16">
+            <div class="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium mb-6">
+                <div class="w-2 h-2 bg-green-500 rounded-full pulse-dot"></div>
+                <span>Ready to try it yourself?</span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/register/" class="bg-purple-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-purple-700 transition-all transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-user-plus mr-2"></i>Create Free Account
+                </a>
+                <a href="/api/docs/" class="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-bold text-lg hover:border-purple-600 hover:text-purple-600 transition-all">
+                    <i class="fas fa-code mr-2"></i>Explore API
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Simple, Transparent Pricing
+            </h2>
+            <p class="text-xl text-gray-600">
+                Choose the plan that fits your content creation needs
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Free Plan -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-gray-200 relative">
+                <h3 class="font-bold text-xl mb-4">Free</h3>
+                <div class="text-3xl font-bold mb-6">$0<span class="text-sm text-gray-500">/month</span></div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 10 content generations</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 5 video uploads</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 1 voice profile</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Smart matching</li>
+                </ul>
+                <a href="/register/" class="w-full bg-gray-200 text-gray-700 py-3 rounded-lg font-medium text-center block hover:bg-gray-300 transition-colors">
+                    Get Started Free
+                </a>
+            </div>
+            
+            <!-- Starter Plan -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-purple-200 relative">
+                <h3 class="font-bold text-xl mb-4">Starter</h3>
+                <div class="text-3xl font-bold mb-6">$19<span class="text-sm text-gray-500">/month</span></div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 100 content generations</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 50 video uploads</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 3 voice profiles</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Premium templates</li>
+                </ul>
+                <a href="/register/" class="w-full bg-purple-600 text-white py-3 rounded-lg font-medium text-center block hover:bg-purple-700 transition-colors">
+                    Choose Starter
+                </a>
+            </div>
+            
+            <!-- Creator Plan -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-blue-200 relative">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">Popular</span>
+                </div>
+                <h3 class="font-bold text-xl mb-4">Creator</h3>
+                <div class="text-3xl font-bold mb-6">$49<span class="text-sm text-gray-500">/month</span></div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 500 content generations</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 200 video uploads</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 10 voice profiles</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Team collaboration</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> API access</li>
+                </ul>
+                <a href="/register/" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium text-center block hover:bg-blue-700 transition-colors">
+                    Choose Creator
+                </a>
+            </div>
+            
+            <!-- Team Plan -->
+            <div class="content-card bg-white p-8 rounded-xl shadow-lg border border-gray-200 relative">
+                <h3 class="font-bold text-xl mb-4">Team</h3>
+                <div class="text-3xl font-bold mb-6">$99<span class="text-sm text-gray-500">/month</span></div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 2000 content generations</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 1000 video uploads</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Unlimited voice profiles</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Priority support</li>
+                    <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Custom integrations</li>
+                </ul>
+                <a href="/contact/" class="w-full bg-gray-800 text-white py-3 rounded-lg font-medium text-center block hover:bg-gray-900 transition-colors">
+                    Contact Sales
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,364 @@
+{% extends "mobile/base.html" %}
+
+{% block title %}Profile - Repli{% endblock %}
+
+{% block content %}
+<div class="safe-area-top">
+    <!-- Profile Header -->
+    <header class="gradient-bg px-6 py-8 text-white">
+        <div class="text-center">
+            <div class="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-user text-white text-3xl"></i>
+            </div>
+            <h1 class="text-2xl font-bold mb-1">John Creator</h1>
+            <p class="text-white text-opacity-90 mb-4">Content Creator & Entrepreneur</p>
+            
+            <!-- Stats -->
+            <div class="flex justify-center space-x-8">
+                <div class="text-center">
+                    <div class="text-2xl font-bold">12</div>
+                    <div class="text-sm text-white text-opacity-80">Content</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold">8</div>
+                    <div class="text-sm text-white text-opacity-80">Videos</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold">3</div>
+                    <div class="text-sm text-white text-opacity-80">Profiles</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Quick Actions -->
+    <div class="px-6 py-6 -mt-6 relative z-10">
+        <div class="grid grid-cols-2 gap-4 mb-8">
+            <button onclick="editProfile()" class="card p-4 text-center active:scale-95 transition-transform">
+                <i class="fas fa-edit text-indigo-600 text-2xl mb-2"></i>
+                <div class="font-medium text-gray-900">Edit Profile</div>
+            </button>
+            
+            <button onclick="manageVoiceProfiles()" class="card p-4 text-center active:scale-95 transition-transform">
+                <i class="fas fa-microphone text-purple-600 text-2xl mb-2"></i>
+                <div class="font-medium text-gray-900">Voice Profiles</div>
+            </button>
+        </div>
+        
+        <!-- Current Plan -->
+        <div class="card p-6 mb-6 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900">Starter Plan</h3>
+                    <p class="text-sm text-gray-600">$19/month</p>
+                </div>
+                <button onclick="upgradePlan()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium text-sm">
+                    Upgrade
+                </button>
+            </div>
+            
+            <div class="space-y-3">
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-600">Content Generated</span>
+                        <span class="font-medium">12 / 100</span>
+                    </div>
+                    <div class="w-full bg-white rounded-full h-2">
+                        <div class="bg-indigo-600 h-2 rounded-full" style="width: 12%"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-600">Videos Uploaded</span>
+                        <span class="font-medium">8 / 50</span>
+                    </div>
+                    <div class="w-full bg-white rounded-full h-2">
+                        <div class="bg-purple-600 h-2 rounded-full" style="width: 16%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu Options -->
+        <div class="space-y-2">
+            <!-- Account -->
+            <div class="card">
+                <button onclick="showAccountSettings()" class="w-full p-4 flex items-center justify-between text-left">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user-cog text-blue-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Account Settings</div>
+                            <div class="text-sm text-gray-600">Profile, email, password</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+            </div>
+            
+            <!-- Voice Profiles -->
+            <div class="card">
+                <button onclick="manageVoiceProfiles()" class="w-full p-4 flex items-center justify-between text-left">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-microphone text-purple-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Voice Profiles</div>
+                            <div class="text-sm text-gray-600">Manage your writing styles</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-sm text-gray-500 mr-2">3</span>
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </button>
+            </div>
+            
+            <!-- Analytics -->
+            <div class="card">
+                <button onclick="viewAnalytics()" class="w-full p-4 flex items-center justify-between text-left">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-chart-line text-green-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Analytics</div>
+                            <div class="text-sm text-gray-600">Content performance insights</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+            </div>
+            
+            <!-- Billing -->
+            <div class="card">
+                <button onclick="manageBilling()" class="w-full p-4 flex items-center justify-between text-left">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-credit-card text-yellow-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Billing</div>
+                            <div class="text-sm text-gray-600">Payment methods, invoices</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+            </div>
+            
+            <!-- API Access -->
+            <div class="card">
+                <button onclick="viewAPIAccess()" class="w-full p-4 flex items-center justify-between text-left">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-code text-red-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">API Access</div>
+                            <div class="text-sm text-gray-600">Developer tools, API keys</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+            </div>
+            
+            <!-- Support -->
+            <div class="card">
+                <button onclick="contactSupport()" class="w-full p-4 flex items-center justify-between text-left">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-headset text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">Help & Support</div>
+                            <div class="text-sm text-gray-600">FAQ, contact us</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+            </div>
+            
+            <!-- Settings -->
+            <div class="card">
+                <button onclick="appSettings()" class="w-full p-4 flex items-center justify-between text-left">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-cog text-gray-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">App Settings</div>
+                            <div class="text-sm text-gray-600">Notifications, preferences</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Sign Out -->
+        <div class="mt-8 mb-8">
+            <button onclick="signOut()" class="w-full card p-4 text-red-600 font-medium">
+                <i class="fas fa-sign-out-alt mr-3"></i>
+                Sign Out
+            </button>
+        </div>
+        
+        <!-- App Info -->
+        <div class="text-center text-gray-500 text-sm mb-8">
+            <p>Repli v2.1.0</p>
+            <p class="mt-1">
+                <a href="#" class="text-indigo-600">Privacy Policy</a> • 
+                <a href="#" class="text-indigo-600">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Edit Modal -->
+<div id="edit-profile-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-end z-50 hidden">
+    <div class="w-full bg-white rounded-t-3xl p-6 safe-area-bottom">
+        <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6"></div>
+        
+        <h2 class="text-xl font-bold text-gray-900 mb-6">Edit Profile</h2>
+        
+        <form class="space-y-6">
+            <div class="text-center mb-6">
+                <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user text-gray-400 text-2xl"></i>
+                </div>
+                <button type="button" class="text-indigo-600 font-medium">
+                    Change Photo
+                </button>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <input 
+                    type="text" 
+                    value="John Creator"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                >
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+                <textarea 
+                    rows="3"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    placeholder="Tell people about yourself..."
+                >Content Creator & Entrepreneur</textarea>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input 
+                    type="email" 
+                    value="john@example.com"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                >
+            </div>
+            
+            <div class="flex space-x-4 pt-4">
+                <button 
+                    type="button"
+                    onclick="closeEditProfile()"
+                    class="flex-1 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl"
+                >
+                    Cancel
+                </button>
+                <button 
+                    type="submit"
+                    class="flex-1 py-3 btn-primary text-white font-medium rounded-xl"
+                >
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function editProfile() {
+        document.getElementById('edit-profile-modal').classList.remove('hidden');
+    }
+    
+    function closeEditProfile() {
+        document.getElementById('edit-profile-modal').classList.add('hidden');
+    }
+    
+    function manageVoiceProfiles() {
+        window.mobileApp.showToast('Opening voice profiles...', 'info');
+        setTimeout(() => {
+            window.location.href = '/voice-profiles/';
+        }, 500);
+    }
+    
+    function upgradePlan() {
+        window.mobileApp.showToast('Opening upgrade options...', 'info');
+        setTimeout(() => {
+            window.location.href = '/upgrade/';
+        }, 500);
+    }
+    
+    function showAccountSettings() {
+        window.mobileApp.showToast('Opening account settings...', 'info');
+        setTimeout(() => {
+            window.location.href = '/settings/account/';
+        }, 500);
+    }
+    
+    function viewAnalytics() {
+        window.mobileApp.showToast('Analytics coming soon!', 'info');
+    }
+    
+    function manageBilling() {
+        window.mobileApp.showToast('Opening billing...', 'info');
+        setTimeout(() => {
+            window.location.href = '/billing/';
+        }, 500);
+    }
+    
+    function viewAPIAccess() {
+        window.mobileApp.showToast('Opening API documentation...', 'info');
+        setTimeout(() => {
+            window.location.href = '/api/docs/';
+        }, 500);
+    }
+    
+    function contactSupport() {
+        window.mobileApp.showToast('Opening support center...', 'info');
+    }
+    
+    function appSettings() {
+        window.mobileApp.showToast('Opening app settings...', 'info');
+    }
+    
+    function signOut() {
+        if (confirm('Are you sure you want to sign out?')) {
+            window.mobileApp.showLoading('Signing out...');
+            setTimeout(() => {
+                // Clear auth tokens
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                
+                window.location.href = '/';
+            }, 1500);
+        }
+    }
+    
+    // Handle profile form submission
+    document.querySelector('#edit-profile-modal form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        window.mobileApp.showLoading('Updating profile...');
+        setTimeout(() => {
+            window.mobileApp.hideLoading();
+            window.mobileApp.showToast('Profile updated successfully!', 'success');
+            closeEditProfile();
+        }, 2000);
+    });
+</script>
+{% endblock %}

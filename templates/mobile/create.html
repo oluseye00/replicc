@@ -1,0 +1,507 @@
+{% extends "mobile/base.html" %}
+
+{% block title %}Create Content - Repli{% endblock %}
+
+{% block content %}
+<div class="safe-area-top">
+    <!-- Header -->
+    <header class="px-6 py-4 bg-white border-b border-gray-100">
+        <div class="flex items-center justify-between">
+            <button onclick="goBack()" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="text-lg font-bold text-gray-900">Create Content</h1>
+            <button onclick="saveDraft()" class="text-indigo-600 font-medium text-sm">
+                Save Draft
+            </button>
+        </div>
+    </header>
+    
+    <!-- Progress Bar -->
+    <div class="px-6 py-4 bg-white">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-medium text-gray-600">Step <span id="current-step">1</span> of 4</span>
+            <span class="text-sm text-gray-500"><span id="progress-percent">25</span>%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+            <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 25%"></div>
+        </div>
+    </div>
+    
+    <!-- Step Container -->
+    <div id="step-container" class="px-6 py-6 min-h-screen">
+        
+        <!-- Step 1: Topic & Content Type -->
+        <div id="step-1" class="step-content">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-purple-100 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-lightbulb text-purple-600 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">What's your topic?</h2>
+                <p class="text-gray-600">Tell us what you want to create content about</p>
+            </div>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Content Topic</label>
+                    <textarea 
+                        id="topic-input"
+                        rows="4" 
+                        class="w-full px-4 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg resize-none"
+                        placeholder="e.g., 5 productivity tips for remote workers, How to start a successful online business..."
+                    ></textarea>
+                    <p class="text-sm text-gray-500 mt-2">Be specific for better results</p>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Content Type</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="content-type-btn p-4 border-2 border-gray-200 rounded-2xl text-center active:scale-95 transition-all" data-type="social">
+                            <i class="fas fa-share-alt text-purple-600 text-2xl mb-2"></i>
+                            <div class="font-medium text-gray-900">Social Media</div>
+                            <div class="text-xs text-gray-500">Multi-platform</div>
+                        </button>
+                        
+                        <button class="content-type-btn p-4 border-2 border-gray-200 rounded-2xl text-center active:scale-95 transition-all" data-type="video">
+                            <i class="fas fa-video text-blue-600 text-2xl mb-2"></i>
+                            <div class="font-medium text-gray-900">Video Script</div>
+                            <div class="text-xs text-gray-500">With matching</div>
+                        </button>
+                        
+                        <button class="content-type-btn p-4 border-2 border-gray-200 rounded-2xl text-center active:scale-95 transition-all" data-type="blog">
+                            <i class="fas fa-blog text-green-600 text-2xl mb-2"></i>
+                            <div class="font-medium text-gray-900">Blog Post</div>
+                            <div class="text-xs text-gray-500">Long-form</div>
+                        </button>
+                        
+                        <button class="content-type-btn p-4 border-2 border-gray-200 rounded-2xl text-center active:scale-95 transition-all" data-type="email">
+                            <i class="fas fa-envelope text-yellow-600 text-2xl mb-2"></i>
+                            <div class="font-medium text-gray-900">Email</div>
+                            <div class="text-xs text-gray-500">Newsletter</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 2: Platforms -->
+        <div id="step-2" class="step-content hidden">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-blue-100 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-share-alt text-blue-600 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Choose Platforms</h2>
+                <p class="text-gray-600">Where do you want to publish this content?</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <button class="platform-btn p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-platform="tiktok">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-tiktok text-black text-2xl mr-3"></i>
+                        <span class="font-medium text-gray-900">TikTok</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Short-form vertical video</p>
+                </button>
+                
+                <button class="platform-btn p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-platform="instagram">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-instagram text-pink-600 text-2xl mr-3"></i>
+                        <span class="font-medium text-gray-900">Instagram</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Posts, Stories, Reels</p>
+                </button>
+                
+                <button class="platform-btn p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-platform="linkedin">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-linkedin text-blue-600 text-2xl mr-3"></i>
+                        <span class="font-medium text-gray-900">LinkedIn</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Professional network</p>
+                </button>
+                
+                <button class="platform-btn p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-platform="twitter">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-twitter text-blue-400 text-2xl mr-3"></i>
+                        <span class="font-medium text-gray-900">Twitter</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Micro-blogging</p>
+                </button>
+                
+                <button class="platform-btn p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-platform="youtube">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-youtube text-red-600 text-2xl mr-3"></i>
+                        <span class="font-medium text-gray-900">YouTube</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Video platform</p>
+                </button>
+                
+                <button class="platform-btn p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-platform="facebook">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-facebook text-blue-800 text-2xl mr-3"></i>
+                        <span class="font-medium text-gray-900">Facebook</span>
+                    </div>
+                    <p class="text-sm text-gray-600">Social networking</p>
+                </button>
+            </div>
+            
+            <div class="mt-6 p-4 bg-blue-50 rounded-2xl">
+                <p class="text-sm text-blue-800">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Select multiple platforms to generate optimized content for each
+                </p>
+            </div>
+        </div>
+        
+        <!-- Step 3: Voice & Style -->
+        <div id="step-3" class="step-content hidden">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-green-100 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-microphone text-green-600 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Your Voice & Style</h2>
+                <p class="text-gray-600">How do you want your content to sound?</p>
+            </div>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Voice Profile</label>
+                    <div class="space-y-3">
+                        <button class="voice-btn w-full p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-voice="professional">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-briefcase text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Professional</div>
+                                    <div class="text-sm text-gray-600">Business-focused, authoritative tone</div>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button class="voice-btn w-full p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-voice="casual">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-smile text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Casual & Friendly</div>
+                                    <div class="text-sm text-gray-600">Conversational, approachable style</div>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button class="voice-btn w-full p-4 border-2 border-gray-200 rounded-2xl text-left active:scale-95 transition-all" data-voice="educational">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-graduation-cap text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Educational</div>
+                                    <div class="text-sm text-gray-600">Informative, teaching-focused</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Creativity Level</label>
+                    <div class="px-4">
+                        <input 
+                            type="range" 
+                            id="creativity-slider"
+                            min="1" 
+                            max="10" 
+                            value="7"
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        >
+                        <div class="flex justify-between text-xs text-gray-500 mt-2">
+                            <span>Conservative</span>
+                            <span id="creativity-value" class="font-medium">7</span>
+                            <span>Creative</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Additional Options</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="include-hashtags" checked class="w-5 h-5 text-indigo-600 rounded">
+                            <span class="ml-3 text-gray-900">Include hashtags</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="include-emojis" checked class="w-5 h-5 text-indigo-600 rounded">
+                            <span class="ml-3 text-gray-900">Include emojis</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="find-videos" checked class="w-5 h-5 text-indigo-600 rounded">
+                            <span class="ml-3 text-gray-900">Find matching videos</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 4: Review & Generate -->
+        <div id="step-4" class="step-content hidden">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-yellow-100 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check-circle text-yellow-600 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Review & Generate</h2>
+                <p class="text-gray-600">Everything looks good? Let's create your content!</p>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- Review Summary -->
+                <div class="card p-4">
+                    <h3 class="font-medium text-gray-900 mb-3">Content Summary</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Topic:</span>
+                            <span id="review-topic" class="text-gray-900 font-medium">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Type:</span>
+                            <span id="review-type" class="text-gray-900 font-medium">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Platforms:</span>
+                            <span id="review-platforms" class="text-gray-900 font-medium">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Voice:</span>
+                            <span id="review-voice" class="text-gray-900 font-medium">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Generate Button -->
+                <button 
+                    id="generate-btn"
+                    onclick="generateContent()"
+                    class="w-full btn-primary text-white py-4 rounded-2xl font-bold text-lg shadow-lg"
+                >
+                    <i class="fas fa-magic mr-2"></i>
+                    Generate Content
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="fixed bottom-20 left-0 right-0 px-6 py-4 bg-white border-t border-gray-100 safe-area-bottom">
+        <div class="flex justify-between">
+            <button 
+                id="prev-btn" 
+                onclick="previousStep()"
+                class="px-6 py-3 text-gray-600 font-medium rounded-xl border border-gray-300 hidden"
+            >
+                Previous
+            </button>
+            <div class="flex-1"></div>
+            <button 
+                id="next-btn" 
+                onclick="nextStep()"
+                class="px-6 py-3 btn-primary text-white font-medium rounded-xl"
+            >
+                Next
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+    let formData = {
+        topic: '',
+        contentType: '',
+        platforms: [],
+        voice: '',
+        creativity: 7,
+        options: {}
+    };
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        setupEventListeners();
+        updateNavigationButtons();
+    });
+    
+    function setupEventListeners() {
+        // Content type selection
+        document.querySelectorAll('.content-type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.content-type-btn').forEach(b => {
+                    b.classList.remove('border-indigo-500', 'bg-indigo-50');
+                    b.classList.add('border-gray-200');
+                });
+                btn.classList.remove('border-gray-200');
+                btn.classList.add('border-indigo-500', 'bg-indigo-50');
+                formData.contentType = btn.dataset.type;
+            });
+        });
+        
+        // Platform selection
+        document.querySelectorAll('.platform-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const platform = btn.dataset.platform;
+                const isSelected = btn.classList.contains('border-indigo-500');
+                
+                if (isSelected) {
+                    btn.classList.remove('border-indigo-500', 'bg-indigo-50');
+                    btn.classList.add('border-gray-200');
+                    formData.platforms = formData.platforms.filter(p => p !== platform);
+                } else {
+                    btn.classList.remove('border-gray-200');
+                    btn.classList.add('border-indigo-500', 'bg-indigo-50');
+                    formData.platforms.push(platform);
+                }
+            });
+        });
+        
+        // Voice selection
+        document.querySelectorAll('.voice-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.voice-btn').forEach(b => {
+                    b.classList.remove('border-indigo-500', 'bg-indigo-50');
+                    b.classList.add('border-gray-200');
+                });
+                btn.classList.remove('border-gray-200');
+                btn.classList.add('border-indigo-500', 'bg-indigo-50');
+                formData.voice = btn.dataset.voice;
+            });
+        });
+        
+        // Creativity slider
+        const creativitySlider = document.getElementById('creativity-slider');
+        const creativityValue = document.getElementById('creativity-value');
+        creativitySlider.addEventListener('input', () => {
+            creativityValue.textContent = creativitySlider.value;
+            formData.creativity = creativitySlider.value;
+        });
+        
+        // Topic input
+        document.getElementById('topic-input').addEventListener('input', (e) => {
+            formData.topic = e.target.value;
+        });
+    }
+    
+    function nextStep() {
+        // Validate current step
+        if (!validateStep(currentStep)) return;
+        
+        if (currentStep < 4) {
+            currentStep++;
+            updateStep();
+        }
+    }
+    
+    function previousStep() {
+        if (currentStep > 1) {
+            currentStep--;
+            updateStep();
+        }
+    }
+    
+    function updateStep() {
+        // Hide all steps
+        document.querySelectorAll('.step-content').forEach(step => {
+            step.classList.add('hidden');
+        });
+        
+        // Show current step
+        document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+        
+        // Update progress
+        const progress = (currentStep / 4) * 100;
+        document.getElementById('progress-bar').style.width = progress + '%';
+        document.getElementById('current-step').textContent = currentStep;
+        document.getElementById('progress-percent').textContent = Math.round(progress);
+        
+        // Update navigation buttons
+        updateNavigationButtons();
+        
+        // Update review if on step 4
+        if (currentStep === 4) {
+            updateReview();
+        }
+    }
+    
+    function updateNavigationButtons() {
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        prevBtn.classList.toggle('hidden', currentStep === 1);
+        
+        if (currentStep === 4) {
+            nextBtn.classList.add('hidden');
+        } else {
+            nextBtn.classList.remove('hidden');
+        }
+    }
+    
+    function validateStep(step) {
+        switch (step) {
+            case 1:
+                if (!formData.topic.trim()) {
+                    window.mobileApp.showToast('Please enter a topic', 'error');
+                    return false;
+                }
+                if (!formData.contentType) {
+                    window.mobileApp.showToast('Please select a content type', 'error');
+                    return false;
+                }
+                return true;
+                
+            case 2:
+                if (formData.platforms.length === 0) {
+                    window.mobileApp.showToast('Please select at least one platform', 'error');
+                    return false;
+                }
+                return true;
+                
+            case 3:
+                if (!formData.voice) {
+                    window.mobileApp.showToast('Please select a voice profile', 'error');
+                    return false;
+                }
+                return true;
+                
+            default:
+                return true;
+        }
+    }
+    
+    function updateReview() {
+        document.getElementById('review-topic').textContent = formData.topic.substring(0, 50) + '...';
+        document.getElementById('review-type').textContent = formData.contentType.charAt(0).toUpperCase() + formData.contentType.slice(1);
+        document.getElementById('review-platforms').textContent = formData.platforms.length + ' platform' + (formData.platforms.length > 1 ? 's' : '');
+        document.getElementById('review-voice').textContent = formData.voice.charAt(0).toUpperCase() + formData.voice.slice(1);
+    }
+    
+    function generateContent() {
+        const btn = document.getElementById('generate-btn');
+        btn.innerHTML = '<i class="fas fa-spinner animate-spin mr-2"></i>Generating...';
+        btn.disabled = true;
+        
+        // Simulate generation process
+        setTimeout(() => {
+            window.location.href = '/results/?generated=true';
+        }, 3000);
+    }
+    
+    function goBack() {
+        if (currentStep > 1) {
+            previousStep();
+        } else {
+            window.history.back();
+        }
+    }
+    
+    function saveDraft() {
+        window.mobileApp.showToast('Draft saved', 'success');
+    }
+</script>
+{% endblock %}

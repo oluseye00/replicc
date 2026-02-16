@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#6366f1">
+    <title>{% block title %}Repli - AI Content Creator{% endblock %}</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/static/mobile/manifest.json">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/mobile/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/mobile/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/mobile/icons/icon-16x16.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Hammer.js for touch gestures -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    
+    <style>
+        /* Mobile-specific styles */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        input, textarea {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            overflow-x: hidden;
+            background: #f8fafc;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .safe-area-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .mobile-container {
+            max-width: 100vw;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .fab {
+            position: fixed;
+            bottom: calc(80px + env(safe-area-inset-bottom));
+            right: 20px;
+            z-index: 40;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .fab:active {
+            transform: scale(0.95);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .card:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .swipe-container {
+            overflow-x: hidden;
+            touch-action: pan-y;
+        }
+        
+        .slide-enter {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .slide-enter-active {
+            transform: translateX(0);
+        }
+        
+        .slide-exit {
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .slide-exit-active {
+            transform: translateX(-100%);
+        }
+        
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Status bar styles for different devices */
+        @supports (padding: max(0px)) {
+            .status-bar-height {
+                padding-top: max(20px, env(safe-area-inset-top));
+            }
+        }
+        
+        /* Hide scrollbars but keep functionality */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="mobile-container">
+    <!-- Status Bar Overlay -->
+    <div id="status-bar" class="fixed top-0 left-0 right-0 z-50 safe-area-top bg-black bg-opacity-10 h-6 md:hidden"></div>
+    
+    <!-- Main Content -->
+    <main class="min-h-screen pb-20">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Bottom Navigation -->
+    {% block bottom_nav %}
+    <nav class="bottom-nav">
+        <div class="flex justify-around items-center py-2 px-4">
+            <a href="/app/" class="flex flex-col items-center p-2 text-gray-600 active:text-indigo-600 transition-colors nav-item" data-page="home">
+                <i class="fas fa-home text-xl mb-1"></i>
+                <span class="text-xs font-medium">Home</span>
+            </a>
+            <a href="/create/" class="flex flex-col items-center p-2 text-gray-600 active:text-indigo-600 transition-colors nav-item" data-page="create">
+                <i class="fas fa-plus-circle text-xl mb-1"></i>
+                <span class="text-xs font-medium">Create</span>
+            </a>
+            <a href="/library/" class="flex flex-col items-center p-2 text-gray-600 active:text-indigo-600 transition-colors nav-item" data-page="library">
+                <i class="fas fa-folder text-xl mb-1"></i>
+                <span class="text-xs font-medium">Library</span>
+            </a>
+            <a href="/profile/" class="flex flex-col items-center p-2 text-gray-600 active:text-indigo-600 transition-colors nav-item" data-page="profile">
+                <i class="fas fa-user text-xl mb-1"></i>
+                <span class="text-xs font-medium">Profile</span>
+            </a>
+        </div>
+    </nav>
+    {% endblock %}
+    
+    <!-- Floating Action Button -->
+    {% block fab %}{% endblock %}
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="glass-effect rounded-2xl p-8 mx-4 text-center">
+            <div class="loading-spinner w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Processing...</h3>
+            <p class="text-gray-600" id="loading-message">Please wait</p>
+        </div>
+    </div>
+    
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="fixed top-16 left-4 right-4 z-40 space-y-2"></div>
+    
+    <!-- JavaScript -->
+    <script>
+        class MobileApp {
+            constructor() {
+                this.currentPage = this.getCurrentPage();
+                this.init();
+            }
+            
+            init() {
+                this.setupNavigation();
+                this.setupGestures();
+                this.setupPWA();
+                this.updateActiveNav();
+            }
+            
+            getCurrentPage() {
+                const path = window.location.pathname;
+                if (path === '/' || path === '/app/') return 'home';
+                if (path === '/create/') return 'create';
+                if (path === '/library/') return 'library';
+                if (path === '/profile/') return 'profile';
+                return 'home';
+            }
+            
+            setupNavigation() {
+                // Update active nav item
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        // Add touch feedback
+                        item.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            item.style.transform = 'scale(1)';
+                        }, 100);
+                    });
+                });
+                
+                // Handle back button
+                window.addEventListener('popstate', (e) => {
+                    this.handleNavigation();
+                });
+            }
+            
+            updateActiveNav() {
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    const page = item.dataset.page;
+                    if (page === this.currentPage) {
+                        item.classList.remove('text-gray-600');
+                        item.classList.add('text-indigo-600');
+                    } else {
+                        item.classList.remove('text-indigo-600');
+                        item.classList.add('text-gray-600');
+                    }
+                });
+            }
+            
+            setupGestures() {
+                // Setup swipe gestures
+                const hammer = new Hammer(document.body);
+                hammer.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+                
+                hammer.on('swipeleft', () => {
+                    this.handleSwipeLeft();
+                });
+                
+                hammer.on('swiperight', () => {
+                    this.handleSwipeRight();
+                });
+                
+                // Pull to refresh
+                let startY = 0;
+                let pulling = false;
+                
+                document.addEventListener('touchstart', (e) => {
+                    startY = e.touches[0].clientY;
+                    pulling = window.scrollY === 0;
+                }, { passive: true });
+                
+                document.addEventListener('touchmove', (e) => {
+                    if (!pulling) return;
+                    
+                    const currentY = e.touches[0].clientY;
+                    const diff = currentY - startY;
+                    
+                    if (diff > 100) {
+                        this.handlePullRefresh();
+                        pulling = false;
+                    }
+                }, { passive: true });
+            }
+            
+            handleSwipeLeft() {
+                // Navigate to next page
+                const pages = ['home', 'create', 'library', 'profile'];
+                const currentIndex = pages.indexOf(this.currentPage);
+                const nextIndex = (currentIndex + 1) % pages.length;
+                const nextPage = pages[nextIndex];
+                
+                this.navigateToPage(nextPage);
+            }
+            
+            handleSwipeRight() {
+                // Navigate to previous page
+                const pages = ['home', 'create', 'library', 'profile'];
+                const currentIndex = pages.indexOf(this.currentPage);
+                const prevIndex = (currentIndex - 1 + pages.length) % pages.length;
+                const prevPage = pages[prevIndex];
+                
+                this.navigateToPage(prevPage);
+            }
+            
+            navigateToPage(page) {
+                const routes = {
+                    home: '/app/',
+                    create: '/create/',
+                    library: '/library/',
+                    profile: '/profile/'
+                };
+                
+                if (routes[page]) {
+                    window.location.href = routes[page];
+                }
+            }
+            
+            handlePullRefresh() {
+                this.showToast('Refreshing...', 'info');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+            
+            setupPWA() {
+                // Register service worker
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/static/mobile/sw.js')
+                        .then(reg => console.log('SW registered'))
+                        .catch(err => console.log('SW registration failed'));
+                }
+                
+                // Handle install prompt
+                let deferredPrompt;
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    deferredPrompt = e;
+                    this.showInstallPrompt();
+                });
+            }
+            
+            showInstallPrompt() {
+                const toast = document.createElement('div');
+                toast.className = 'glass-effect rounded-lg p-4 mb-2 border border-indigo-200';
+                toast.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Install Repli</h4>
+                            <p class="text-sm text-gray-600">Add to home screen for quick access</p>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.remove()" class="text-indigo-600 font-medium text-sm px-3 py-1 rounded">
+                            Install
+                        </button>
+                    </div>
+                `;
+                document.getElementById('toast-container').appendChild(toast);
+                
+                setTimeout(() => {
+                    if (toast.parentElement) {
+                        toast.remove();
+                    }
+                }, 10000);
+            }
+            
+            showLoading(message = 'Please wait...') {
+                document.getElementById('loading-message').textContent = message;
+                document.getElementById('loading-overlay').classList.remove('hidden');
+            }
+            
+            hideLoading() {
+                document.getElementById('loading-overlay').classList.add('hidden');
+            }
+            
+            showToast(message, type = 'info') {
+                const colors = {
+                    info: 'bg-blue-500',
+                    success: 'bg-green-500',
+                    warning: 'bg-yellow-500',
+                    error: 'bg-red-500'
+                };
+                
+                const toast = document.createElement('div');
+                toast.className = `${colors[type]} text-white px-4 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300`;
+                toast.textContent = message;
+                
+                document.getElementById('toast-container').appendChild(toast);
+                
+                // Animate in
+                setTimeout(() => {
+                    toast.classList.remove('translate-x-full');
+                }, 100);
+                
+                // Animate out
+                setTimeout(() => {
+                    toast.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        if (toast.parentElement) {
+                            toast.remove();
+                        }
+                    }, 300);
+                }, 3000);
+            }
+        }
+        
+        // Initialize mobile app
+        document.addEventListener('DOMContentLoaded', () => {
+            window.mobileApp = new MobileApp();
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

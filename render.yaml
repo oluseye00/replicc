@@ -1,0 +1,40 @@
+services:
+  # Django Web Service
+  - type: web
+    name: repli-app
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn repli.wsgi:application"
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.4
+      - key: DJANGO_SETTINGS_MODULE
+        value: repli.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: DATABASE_URL
+        fromDatabase:
+          name: repli-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: repli-redis
+          property: connectionString
+
+  # PostgreSQL Database
+  - type: pserv
+    name: repli-db
+    env: postgresql
+    plan: free
+    databaseName: repli
+    databaseUser: repli
+
+  # Redis Service
+  - type: redis
+    name: repli-redis
+    plan: free

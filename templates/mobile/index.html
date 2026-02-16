@@ -1,0 +1,326 @@
+{% extends "mobile/base.html" %}
+
+{% block title %}Repli - AI Content Creation{% endblock %}
+
+{% block bottom_nav %}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen gradient-bg flex flex-col">
+    <!-- Splash Screen / Landing -->
+    <div id="splash-screen" class="flex-1 flex flex-col items-center justify-center px-6 text-center text-white">
+        <div class="bounce-in">
+            <div class="w-24 h-24 bg-white bg-opacity-20 rounded-3xl flex items-center justify-center mb-8">
+                <i class="fas fa-magic text-white text-4xl"></i>
+            </div>
+            
+            <h1 class="text-4xl font-bold mb-4">Repli</h1>
+            <p class="text-xl text-white text-opacity-90 mb-12 leading-relaxed">
+                AI-powered content creation<br>meets smart video matching
+            </p>
+            
+            <div class="space-y-4 w-full max-w-sm">
+                <button 
+                    onclick="startOnboarding()" 
+                    class="w-full bg-white text-indigo-600 py-4 rounded-2xl font-bold text-lg shadow-xl hover:bg-opacity-90 active:bg-opacity-80 transition-all"
+                >
+                    Get Started
+                </button>
+                
+                <button 
+                    onclick="goToLogin()" 
+                    class="w-full border-2 border-white border-opacity-50 text-white py-4 rounded-2xl font-medium text-lg hover:bg-white hover:bg-opacity-10 active:bg-opacity-20 transition-all"
+                >
+                    I have an account
+                </button>
+            </div>
+        </div>
+        
+        <!-- Features Preview -->
+        <div class="mt-16 grid grid-cols-3 gap-8 text-center">
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-2">
+                    <i class="fas fa-brain text-white text-lg"></i>
+                </div>
+                <span class="text-sm text-white text-opacity-80">Smart Matching</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-2">
+                    <i class="fas fa-share-alt text-white text-lg"></i>
+                </div>
+                <span class="text-sm text-white text-opacity-80">Multi-Platform</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-2">
+                    <i class="fas fa-magic text-white text-lg"></i>
+                </div>
+                <span class="text-sm text-white text-opacity-80">AI Powered</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Auth Modal -->
+<div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-end z-50 hidden">
+    <div class="w-full bg-white rounded-t-3xl p-6 safe-area-bottom">
+        <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6"></div>
+        
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Welcome to Repli</h2>
+        <p class="text-gray-600 mb-8">Sign in or create an account to start creating amazing content</p>
+        
+        <div class="space-y-4">
+            <button class="w-full bg-white border border-gray-300 py-4 rounded-2xl font-medium text-gray-700 flex items-center justify-center shadow-sm hover:bg-gray-50 active:bg-gray-100 transition-all">
+                <i class="fab fa-google text-red-500 mr-3 text-xl"></i>
+                Continue with Google
+            </button>
+            
+            <button class="w-full bg-black text-white py-4 rounded-2xl font-medium flex items-center justify-center hover:bg-gray-900 active:bg-gray-800 transition-all">
+                <i class="fab fa-apple text-white mr-3 text-xl"></i>
+                Continue with Apple
+            </button>
+            
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-4 bg-white text-gray-500">or</span>
+                </div>
+            </div>
+            
+            <button 
+                onclick="showEmailSignup()"
+                class="w-full btn-primary text-white py-4 rounded-2xl font-medium hover:opacity-90 active:opacity-80 transition-all"
+            >
+                Continue with Email
+            </button>
+        </div>
+        
+        <p class="text-center text-sm text-gray-500 mt-6">
+            By continuing, you agree to our 
+            <a href="#" class="text-indigo-600">Terms of Service</a> 
+            and 
+            <a href="#" class="text-indigo-600">Privacy Policy</a>
+        </p>
+        
+        <button 
+            onclick="closeAuthModal()"
+            class="absolute top-6 right-6 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200 active:bg-gray-300 transition-all"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Email Signup Form -->
+<div id="email-signup" class="fixed inset-0 bg-white z-50 hidden">
+    <div class="safe-area-top p-6">
+        <div class="flex items-center mb-8">
+            <button 
+                onclick="hideEmailSignup()" 
+                class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 mr-4"
+            >
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2 class="text-xl font-bold text-gray-900">Create Account</h2>
+        </div>
+        
+        <form id="signup-form" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <input 
+                    type="text" 
+                    name="full_name"
+                    class="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
+                    placeholder="Your full name"
+                    required
+                >
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input 
+                    type="email" 
+                    name="email"
+                    class="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
+                    placeholder="your@email.com"
+                    required
+                >
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <input 
+                    type="password" 
+                    name="password"
+                    class="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
+                    placeholder="Create a strong password"
+                    required
+                >
+            </div>
+            
+            <button 
+                type="submit"
+                class="w-full btn-primary text-white py-4 rounded-xl font-medium text-lg mt-8"
+                id="signup-btn"
+            >
+                Create Account
+            </button>
+        </form>
+        
+        <div class="mt-8 text-center">
+            <span class="text-gray-600">Already have an account? </span>
+            <button onclick="showLogin()" class="text-indigo-600 font-medium">Sign in</button>
+        </div>
+    </div>
+</div>
+
+<!-- Login Form -->
+<div id="login-form" class="fixed inset-0 bg-white z-50 hidden">
+    <div class="safe-area-top p-6">
+        <div class="flex items-center mb-8">
+            <button 
+                onclick="hideLogin()" 
+                class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 mr-4"
+            >
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2 class="text-xl font-bold text-gray-900">Sign In</h2>
+        </div>
+        
+        <form id="login-form-data" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input 
+                    type="email" 
+                    name="email"
+                    class="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
+                    placeholder="your@email.com"
+                    required
+                >
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <input 
+                    type="password" 
+                    name="password"
+                    class="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-lg"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+            
+            <button 
+                type="submit"
+                class="w-full btn-primary text-white py-4 rounded-xl font-medium text-lg mt-8"
+                id="login-btn"
+            >
+                Sign In
+            </button>
+        </form>
+        
+        <div class="mt-4 text-center">
+            <button class="text-indigo-600 font-medium">Forgot password?</button>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <span class="text-gray-600">Don't have an account? </span>
+            <button onclick="showEmailSignup()" class="text-indigo-600 font-medium">Sign up</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Splash screen animations
+    setTimeout(() => {
+        document.querySelectorAll('.bounce-in').forEach(el => {
+            el.classList.add('bounce-in');
+        });
+    }, 300);
+    
+    function startOnboarding() {
+        window.mobileApp.showLoading('Setting up your experience...');
+        setTimeout(() => {
+            window.location.href = '/onboarding/';
+        }, 1500);
+    }
+    
+    function goToLogin() {
+        document.getElementById('auth-modal').classList.remove('hidden');
+        setTimeout(() => {
+            document.getElementById('auth-modal').querySelector('.bg-white').style.transform = 'translateY(0)';
+        }, 100);
+    }
+    
+    function closeAuthModal() {
+        const modal = document.getElementById('auth-modal');
+        const content = modal.querySelector('.bg-white');
+        content.style.transform = 'translateY(100%)';
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+    
+    function showEmailSignup() {
+        closeAuthModal();
+        setTimeout(() => {
+            document.getElementById('email-signup').classList.remove('hidden');
+        }, 300);
+    }
+    
+    function hideEmailSignup() {
+        document.getElementById('email-signup').classList.add('hidden');
+    }
+    
+    function showLogin() {
+        hideEmailSignup();
+        document.getElementById('login-form').classList.remove('hidden');
+    }
+    
+    function hideLogin() {
+        document.getElementById('login-form').classList.add('hidden');
+    }
+    
+    // Form handling
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btn = document.getElementById('signup-btn');
+        const originalText = btn.textContent;
+        btn.textContent = 'Creating Account...';
+        btn.disabled = true;
+        
+        // Simulate API call
+        setTimeout(() => {
+            window.mobileApp.showToast('Account created! Welcome to Repli', 'success');
+            setTimeout(() => {
+                window.location.href = '/app/';
+            }, 1500);
+        }, 2000);
+    });
+    
+    document.getElementById('login-form-data').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btn = document.getElementById('login-btn');
+        const originalText = btn.textContent;
+        btn.textContent = 'Signing In...';
+        btn.disabled = true;
+        
+        // Simulate API call
+        setTimeout(() => {
+            window.mobileApp.showToast('Welcome back!', 'success');
+            setTimeout(() => {
+                window.location.href = '/app/';
+            }, 1500);
+        }, 2000);
+    });
+    
+    // Set initial modal styles
+    document.addEventListener('DOMContentLoaded', () => {
+        const authModal = document.getElementById('auth-modal');
+        authModal.querySelector('.bg-white').style.transform = 'translateY(100%)';
+        authModal.querySelector('.bg-white').style.transition = 'transform 0.3s ease';
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,582 @@
+{% extends "repli/base.html" %}
+
+{% block title %}Create Content - Repli{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="bg-white shadow-sm border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Create Content</h1>
+                <p class="text-gray-600">Generate AI-powered content with smart video matching</p>
+            </div>
+            <a href="/dashboard/" class="text-purple-600 hover:text-purple-700 font-medium">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Content Creation Form -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Content Details</h2>
+                    <p class="text-gray-600">Tell us what you want to create and we'll generate optimized content for your target platforms.</p>
+                </div>
+                
+                <form id="content-form" class="space-y-6">
+                    <!-- Topic Input -->
+                    <div>
+                        <label for="topic" class="block text-sm font-medium text-gray-700 mb-2">
+                            Content Topic *
+                        </label>
+                        <textarea 
+                            id="topic" 
+                            name="topic" 
+                            rows="3" 
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            placeholder="e.g., 5 productivity tips for remote workers, How to start a successful online business, The future of AI in healthcare..."
+                            required
+                        ></textarea>
+                        <p class="text-xs text-gray-500 mt-1">Be specific about what you want to cover. The more detail, the better the content.</p>
+                    </div>
+                    
+                    <!-- Content Type -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Content Type</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-purple-300 hover:bg-purple-50 transition-colors">
+                                <input type="radio" name="content_type" value="social" class="sr-only" checked>
+                                <div class="w-full text-center">
+                                    <i class="fas fa-share-alt text-purple-600 text-xl mb-2"></i>
+                                    <div class="text-sm font-medium">Social Media</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-colors">
+                                <input type="radio" name="content_type" value="blog" class="sr-only">
+                                <div class="w-full text-center">
+                                    <i class="fas fa-blog text-blue-600 text-xl mb-2"></i>
+                                    <div class="text-sm font-medium">Blog Post</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-green-300 hover:bg-green-50 transition-colors">
+                                <input type="radio" name="content_type" value="video" class="sr-only">
+                                <div class="w-full text-center">
+                                    <i class="fas fa-video text-green-600 text-xl mb-2"></i>
+                                    <div class="text-sm font-medium">Video Script</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-yellow-300 hover:bg-yellow-50 transition-colors">
+                                <input type="radio" name="content_type" value="email" class="sr-only">
+                                <div class="w-full text-center">
+                                    <i class="fas fa-envelope text-yellow-600 text-xl mb-2"></i>
+                                    <div class="text-sm font-medium">Email</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Target Platforms -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Target Platforms *</label>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input type="checkbox" name="platforms" value="tiktok" class="mr-3">
+                                <i class="fab fa-tiktok text-black mr-2"></i>
+                                <span>TikTok</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input type="checkbox" name="platforms" value="instagram" class="mr-3">
+                                <i class="fab fa-instagram text-pink-600 mr-2"></i>
+                                <span>Instagram</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input type="checkbox" name="platforms" value="linkedin" class="mr-3">
+                                <i class="fab fa-linkedin text-blue-600 mr-2"></i>
+                                <span>LinkedIn</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input type="checkbox" name="platforms" value="twitter" class="mr-3">
+                                <i class="fab fa-twitter text-blue-400 mr-2"></i>
+                                <span>Twitter</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input type="checkbox" name="platforms" value="youtube" class="mr-3">
+                                <i class="fab fa-youtube text-red-600 mr-2"></i>
+                                <span>YouTube</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input type="checkbox" name="platforms" value="facebook" class="mr-3">
+                                <i class="fab fa-facebook text-blue-800 mr-2"></i>
+                                <span>Facebook</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Voice Profile -->
+                    <div>
+                        <label for="voice_profile" class="block text-sm font-medium text-gray-700 mb-2">
+                            Voice Profile
+                        </label>
+                        <select id="voice_profile" name="voice_profile" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <option value="">Select a voice profile...</option>
+                            <option value="professional">Professional Business</option>
+                            <option value="casual">Casual & Friendly</option>
+                            <option value="educational">Educational Expert</option>
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">This determines the tone and style of your generated content. <a href="/voice-profiles/" class="text-purple-600 hover:text-purple-700">Manage voice profiles</a></p>
+                    </div>
+                    
+                    <!-- Advanced Options -->
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-sm font-medium text-gray-900 mb-3">Advanced Options</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="creativity_level" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Creativity Level: <span id="creativity-value">7</span>
+                                </label>
+                                <input 
+                                    type="range" 
+                                    id="creativity_level" 
+                                    name="creativity_level" 
+                                    min="1" 
+                                    max="10" 
+                                    value="7"
+                                    class="w-full"
+                                    oninput="document.getElementById('creativity-value').textContent = this.value"
+                                >
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>Conservative</span>
+                                    <span>Creative</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="include_hashtags" checked class="mr-2">
+                                    <span class="text-sm font-medium text-gray-700">Include hashtags</span>
+                                </label>
+                                <label class="flex items-center mt-2">
+                                    <input type="checkbox" name="include_emojis" checked class="mr-2">
+                                    <span class="text-sm font-medium text-gray-700">Include emojis</span>
+                                </label>
+                                <label class="flex items-center mt-2">
+                                    <input type="checkbox" name="find_videos" checked class="mr-2">
+                                    <span class="text-sm font-medium text-gray-700">Find matching videos</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        class="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center"
+                        id="generate-btn"
+                    >
+                        <i class="fas fa-magic mr-2"></i>
+                        Generate Content
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="space-y-6">
+            <!-- Tips Card -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <h3 class="text-lg font-bold text-blue-900 mb-3">
+                    <i class="fas fa-lightbulb mr-2"></i>Pro Tips
+                </h3>
+                <ul class="space-y-3 text-sm text-blue-800">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-blue-600 mr-2 mt-1 flex-shrink-0"></i>
+                        <span>Be specific with your topic for better results</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-blue-600 mr-2 mt-1 flex-shrink-0"></i>
+                        <span>Select platforms that match your audience</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-blue-600 mr-2 mt-1 flex-shrink-0"></i>
+                        <span>Use voice profiles for consistent branding</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-blue-600 mr-2 mt-1 flex-shrink-0"></i>
+                        <span>Higher creativity = more unique content</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Video Library Preview -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    <i class="fas fa-video mr-2"></i>Your Video Library
+                </h3>
+                <div id="video-preview" class="space-y-3">
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="w-12 h-12 bg-purple-100 rounded flex items-center justify-center mr-3">
+                            <i class="fas fa-play text-purple-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-gray-900">Product Demo</div>
+                            <div class="text-xs text-gray-500">Energetic • 45s</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="w-12 h-12 bg-blue-100 rounded flex items-center justify-center mr-3">
+                            <i class="fas fa-play text-blue-600"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-gray-900">Office Workspace</div>
+                            <div class="text-xs text-gray-500">Professional • 32s</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/videos/" class="block text-center text-purple-600 hover:text-purple-700 font-medium mt-4">
+                    Manage Video Library
+                </a>
+            </div>
+            
+            <!-- Usage Stats -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    <i class="fas fa-chart-pie mr-2"></i>Usage This Month
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">Content Generated</span>
+                            <span class="font-medium">12 / 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: 12%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">Videos Uploaded</span>
+                            <span class="font-medium">8 / 50</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: 16%"></div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/upgrade/" class="block text-center bg-gradient-to-r from-purple-600 to-blue-600 text-white py-2 px-4 rounded-lg font-medium mt-4 hover:from-purple-700 hover:to-blue-700 transition-colors">
+                    Upgrade Plan
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Results Modal -->
+<div id="results-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-gray-900">
+                    <i class="fas fa-magic text-purple-600 mr-2"></i>Generated Content
+                </h3>
+                <button onclick="closeResults()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="results-content" class="p-6">
+            <!-- Results will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40 hidden">
+    <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+        <div class="text-center">
+            <div class="animate-spin w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full mx-auto mb-6"></div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Creating Your Content</h3>
+            <p class="text-gray-600 mb-4" id="loading-status">Analyzing your topic...</p>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div id="progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">This usually takes 30-60 seconds</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+class ContentCreator {
+    constructor() {
+        this.apiBase = '/api';
+        this.init();
+    }
+    
+    init() {
+        this.setupForm();
+        this.setupRadioButtons();
+        this.loadVideoLibrary();
+    }
+    
+    setupForm() {
+        document.getElementById('content-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.generateContent();
+        });
+    }
+    
+    setupRadioButtons() {
+        // Style radio button selections
+        document.querySelectorAll('input[name="content_type"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                // Remove selected class from all labels
+                document.querySelectorAll('label:has(input[name="content_type"])').forEach(label => {
+                    label.classList.remove('border-purple-500', 'bg-purple-50');
+                    label.classList.add('border-gray-200');
+                });
+                
+                // Add selected class to chosen label
+                const selectedLabel = e.target.closest('label');
+                selectedLabel.classList.remove('border-gray-200');
+                selectedLabel.classList.add('border-purple-500', 'bg-purple-50');
+            });
+        });
+        
+        // Initialize first radio as selected
+        const firstRadio = document.querySelector('input[name="content_type"]:checked');
+        if (firstRadio) {
+            const selectedLabel = firstRadio.closest('label');
+            selectedLabel.classList.add('border-purple-500', 'bg-purple-50');
+        }
+    }
+    
+    async loadVideoLibrary() {
+        // Mock video library - replace with API call
+        const videos = [
+            { title: 'Product Demo', mood: 'Energetic', duration: '45s' },
+            { title: 'Office Workspace', mood: 'Professional', duration: '32s' },
+            { title: 'Tutorial Screen', mood: 'Educational', duration: '1m 20s' },
+        ];
+        
+        // Already rendered in HTML template
+    }
+    
+    async generateContent() {
+        const formData = new FormData(document.getElementById('content-form'));
+        const data = this.serializeForm(formData);
+        
+        // Validate required fields
+        if (!data.topic.trim()) {
+            alert('Please enter a content topic');
+            return;
+        }
+        
+        if (!data.platforms || data.platforms.length === 0) {
+            alert('Please select at least one target platform');
+            return;
+        }
+        
+        this.showLoadingOverlay();
+        
+        try {
+            // Simulate API call with progress updates
+            await this.simulateProgress();
+            
+            // Mock successful response
+            const response = {
+                content: {
+                    tiktok: "🔥 5 Productivity Tips for Remote Workers!\n\n1. Create a dedicated workspace\n2. Set clear boundaries\n3. Take regular breaks\n4. Use time-blocking\n5. Stay connected with your team\n\nWhich tip will you try first? 💼✨\n\n#RemoteWork #Productivity #WorkFromHome #Tips #Success",
+                    instagram: "✨ Remote work productivity secrets! ✨\n\n💡 Create your perfect workspace\n⏰ Master the art of time-blocking\n🧘‍♀️ Don't forget those breaks!\n🤝 Stay connected with your team\n🎯 Set boundaries that actually work\n\nSave this post for later! 📌\n\n#ProductivityTips #RemoteWork #WorkFromHome #Entrepreneur #Success #Motivation #WorkLifeBalance"
+                },
+                videoMatches: [
+                    {
+                        title: 'Office Workspace Setup',
+                        matchScore: 0.94,
+                        reasoning: 'Perfect professional setting that complements productivity tips',
+                        thumbnailUrl: '/media/thumbnails/office-workspace.jpg'
+                    },
+                    {
+                        title: 'Energetic Product Demo',
+                        matchScore: 0.87,
+                        reasoning: 'High energy matches the motivational tone of the content',
+                        thumbnailUrl: '/media/thumbnails/product-demo.jpg'
+                    }
+                ]
+            };
+            
+            this.hideLoadingOverlay();
+            this.showResults(response);
+            
+        } catch (error) {
+            this.hideLoadingOverlay();
+            alert('Failed to generate content. Please try again.');
+            console.error('Content generation error:', error);
+        }
+    }
+    
+    serializeForm(formData) {
+        const data = {};
+        
+        // Get regular form fields
+        for (let [key, value] of formData.entries()) {
+            if (key === 'platforms') {
+                if (!data.platforms) data.platforms = [];
+                data.platforms.push(value);
+            } else {
+                data[key] = value;
+            }
+        }
+        
+        return data;
+    }
+    
+    async simulateProgress() {
+        const steps = [
+            { message: 'Analyzing your topic...', progress: 20 },
+            { message: 'Generating platform-specific content...', progress: 40 },
+            { message: 'Matching with your video library...', progress: 70 },
+            { message: 'Optimizing for engagement...', progress: 90 },
+            { message: 'Finalizing results...', progress: 100 }
+        ];
+        
+        for (const step of steps) {
+            document.getElementById('loading-status').textContent = step.message;
+            document.getElementById('progress-bar').style.width = step.progress + '%';
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+    }
+    
+    showLoadingOverlay() {
+        document.getElementById('loading-overlay').classList.remove('hidden');
+        document.getElementById('generate-btn').disabled = true;
+        document.getElementById('generate-btn').innerHTML = '<i class="fas fa-spinner animate-spin mr-2"></i>Generating...';
+    }
+    
+    hideLoadingOverlay() {
+        document.getElementById('loading-overlay').classList.add('hidden');
+        document.getElementById('generate-btn').disabled = false;
+        document.getElementById('generate-btn').innerHTML = '<i class="fas fa-magic mr-2"></i>Generate Content';
+    }
+    
+    showResults(response) {
+        const resultsHTML = `
+            <div class="space-y-8">
+                <!-- Generated Content -->
+                <div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-4">
+                        <i class="fas fa-file-alt text-purple-600 mr-2"></i>Generated Content
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${Object.entries(response.content).map(([platform, content]) => `
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center">
+                                        <i class="fab fa-${platform} text-xl mr-2"></i>
+                                        <span class="font-medium capitalize">${platform}</span>
+                                    </div>
+                                    <button onclick="copyContent('${platform}')" class="text-purple-600 hover:text-purple-700 text-sm">
+                                        <i class="fas fa-copy mr-1"></i>Copy
+                                    </button>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded text-sm whitespace-pre-wrap" id="content-${platform}">
+                                    ${content}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- Video Matches -->
+                <div>
+                    <h4 class="text-lg font-bold text-gray-900 mb-4">
+                        <i class="fas fa-link text-blue-600 mr-2"></i>Recommended Video Matches
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${response.videoMatches.map(video => `
+                            <div class="border border-gray-200 rounded-lg p-4 hover:border-purple-300 hover:shadow-md transition-all cursor-pointer">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-medium">${video.title}</h5>
+                                    <div class="text-green-600 font-bold">${Math.round(video.matchScore * 100)}% match</div>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">${video.reasoning}</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="text-purple-600 hover:text-purple-700 text-sm">
+                                        <i class="fas fa-play mr-1"></i>Preview
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-700 text-sm">
+                                        <i class="fas fa-download mr-1"></i>Use This Video
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                    <button onclick="saveContent()" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center">
+                        <i class="fas fa-save mr-2"></i>Save to Library
+                    </button>
+                    <button onclick="editContent()" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:border-purple-300 hover:text-purple-600 transition-colors flex items-center justify-center">
+                        <i class="fas fa-edit mr-2"></i>Edit Content
+                    </button>
+                    <button onclick="publishContent()" class="border border-green-300 text-green-700 px-6 py-3 rounded-lg font-medium hover:bg-green-50 transition-colors flex items-center justify-center">
+                        <i class="fas fa-share mr-2"></i>Publish Now
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('results-content').innerHTML = resultsHTML;
+        document.getElementById('results-modal').classList.remove('hidden');
+    }
+}
+
+// Utility functions
+function closeResults() {
+    document.getElementById('results-modal').classList.add('hidden');
+}
+
+function copyContent(platform) {
+    const content = document.getElementById(`content-${platform}`).textContent;
+    navigator.clipboard.writeText(content).then(() => {
+        // Show success message
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check mr-1"></i>Copied!';
+        setTimeout(() => {
+            button.innerHTML = originalText;
+        }, 2000);
+    });
+}
+
+function saveContent() {
+    // Implementation for saving content
+    alert('Content saved to your library!');
+    closeResults();
+}
+
+function editContent() {
+    // Implementation for editing content
+    alert('Opening content editor...');
+}
+
+function publishContent() {
+    // Implementation for publishing content
+    alert('Publishing to selected platforms...');
+}
+
+// Initialize content creator when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    new ContentCreator();
+});
+</script>
+{% endblock %}

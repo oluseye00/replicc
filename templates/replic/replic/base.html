@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RepliC - AI Content Creation{% endblock %}</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .content-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .content-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="gradient-bg shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-2 text-white font-bold text-xl">
+                        <i class="fas fa-magic text-2xl"></i>
+                        <span>RepliC</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/dashboard/" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                    </a>
+                    <a href="/create/" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-plus-circle mr-2"></i>Create Content
+                    </a>
+                    <a href="/videos/" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-video mr-2"></i>My Videos
+                    </a>
+                    <a href="/api/docs/" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-code mr-2"></i>API
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div id="auth-buttons" class="hidden md:flex items-center space-x-4">
+                        <!-- Will be populated by JavaScript based on auth status -->
+                    </div>
+                    
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-button" class="md:hidden text-white hover:text-gray-200 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-black bg-opacity-20">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/dashboard/" class="text-white block px-3 py-2 hover:bg-white hover:bg-opacity-10 rounded">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                </a>
+                <a href="/create/" class="text-white block px-3 py-2 hover:bg-white hover:bg-opacity-10 rounded">
+                    <i class="fas fa-plus-circle mr-2"></i>Create Content
+                </a>
+                <a href="/videos/" class="text-white block px-3 py-2 hover:bg-white hover:bg-opacity-10 rounded">
+                    <i class="fas fa-video mr-2"></i>My Videos
+                </a>
+                <a href="/api/docs/" class="text-white block px-3 py-2 hover:bg-white hover:bg-opacity-10 rounded">
+                    <i class="fas fa-code mr-2"></i>API
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-magic text-2xl text-purple-400"></i>
+                        <span class="font-bold text-xl">RepliC</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Transform your content creation with AI-powered writing and intelligent video pairing.
+                        Create engaging content for all your social media platforms in minutes.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/features/" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="/pricing/" class="hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="/api/docs/" class="hover:text-white transition-colors">API Docs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/help/" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="/contact/" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-gray-700 my-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">&copy; 2024 RepliC. All rights reserved.</p>
+                <p class="text-gray-400 mt-4 md:mt-0">Made with ❤️ and AI</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Auth status check and button rendering
+        function checkAuthStatus() {
+            const token = localStorage.getItem('access_token');
+            const authButtons = document.getElementById('auth-buttons');
+            
+            if (token) {
+                authButtons.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <span class="text-white text-sm">Welcome back!</span>
+                        <button onclick="logout()" class="bg-white bg-opacity-20 text-white px-4 py-2 rounded hover:bg-opacity-30 transition-colors">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </button>
+                    </div>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <a href="/login/" class="text-white hover:text-gray-200 transition-colors">Login</a>
+                        <a href="/register/" class="bg-white text-purple-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors font-medium">
+                            Sign Up Free
+                        </a>
+                    </div>
+                `;
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            window.location.href = '/';
+        }
+        
+        // Initialize auth status on page load
+        document.addEventListener('DOMContentLoaded', checkAuthStatus);
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
