@@ -32,9 +32,6 @@ COPY . /app/
 # Build frontend assets
 RUN cd frontend && npm ci && npm run build
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
 # Create non-root user
 RUN adduser --disabled-password --gecos '' appuser
 RUN chown -R appuser:appuser /app
@@ -47,5 +44,7 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:8000/health/ || exit 1
 
-# Run gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "replic.wsgi:application"]
+# Startup script that runs collectstatic then gunicorn
+CMD python manage.py collectstatic --noinput && \
+    python manage.py migrate && \
+    gunicorn --bind 0.0.0.0:8000 --workers 3 replic.wsgi:application
