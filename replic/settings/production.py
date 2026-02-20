@@ -16,7 +16,7 @@ ALLOWED_HOSTS = [
     'www.replic.com',
     'api.replic.com',
     '.replic.herokuapp.com',
-    '.replic.railway.app',
+    '.railway.app',  # Railway wildcard for any subdomain
     '.replic.onrender.com',
 ]
 

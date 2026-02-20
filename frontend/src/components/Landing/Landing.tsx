@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   Avatar,
-  Stack,
 } from '@mui/material';
 import {
   AutoAwesome as MagicIcon,

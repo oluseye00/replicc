@@ -13,8 +13,6 @@ import {
   ListItemText,
   Avatar,
   IconButton,
-  Paper,
-  Stack,
 } from '@mui/material';
 import {
   Create as CreateIcon,
