@@ -18,6 +18,7 @@ ALLOWED_HOSTS = [
     '.replic.herokuapp.com',
     '.railway.app',  # Railway wildcard for any subdomain
     '.replic.onrender.com',
+    'replicc.onrender.com',  # Your actual Render domain
 ]
 
 # Database configuration (PostgreSQL)
