@@ -55,3 +55,5 @@ flake8==6.1.0
 # Production Server
 gunicorn==21.2.0
 dj-database-url==3.1.0
+
+whitenoise>=6.0.0
