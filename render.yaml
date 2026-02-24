@@ -4,14 +4,14 @@ services:
     name: repli-app
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn repli.wsgi:application"
+    startCommand: "gunicorn replic.wsgi:application"
     plan: free
     healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.4
       - key: DJANGO_SETTINGS_MODULE
-        value: repli.settings
+        value: replic.settings.production
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
