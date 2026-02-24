@@ -8,10 +8,7 @@ from .base import *
 DEBUG = True
 
 # Development-specific apps
-INSTALLED_APPS += [
-    'django_extensions',
-    'debug_toolbar',
-]
+# Note: django_extensions and debug_toolbar are already added in base.py
 
 # Development middleware
 MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
