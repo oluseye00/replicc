@@ -3,7 +3,7 @@ URL Configuration for Video Matching app
 """
 from django.urls import path
 
-app_name = 'video_matching'
+app_name = "video_matching"
 
 urlpatterns = [
     # TODO: Add video matching URLs
