@@ -16,8 +16,9 @@ ALLOWED_HOSTS = [
     'www.replic.com',
     'api.replic.com',
     '.replic.herokuapp.com',
-    '.replic.railway.app',
+    '.railway.app',  # Railway wildcard for any subdomain
     '.replic.onrender.com',
+    'replicc.onrender.com',  # Your actual Render domain
 ]
 
 # Database configuration (PostgreSQL)
@@ -97,21 +98,30 @@ sentry_sdk.init(
     before_send=lambda event, hint: None if 'health' in event.get('request', {}).get('url', '') else event,
 )
 
-# Caching for production
+# Caching for production - temporarily using local memory cache
+# TODO: Set up Redis and uncomment the Redis configuration below
 CACHES = {
     'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': REDIS_URL,
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        },
-        'KEY_PREFIX': 'replic_prod',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
     }
 }
 
-# Session configuration
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-SESSION_CACHE_ALIAS = 'default'
+# Redis cache configuration (uncomment when Redis is set up)
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': REDIS_URL,
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         },
+#         'KEY_PREFIX': 'replic_prod',
+#     }
+# }
+
+# Session configuration - using database instead of Redis for now
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+# SESSION_CACHE_ALIAS = 'default'
 
 # Logging configuration for production
 LOGGING = {

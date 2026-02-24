@@ -201,20 +201,25 @@ SPECTACULAR_SETTINGS = {
 }
 
 # Celery Configuration (for async tasks)  
-REDIS_URL = config('REDIS_URL', default='redis://localhost:6379/0')
+REDIS_URL = config('REDIS_URL', default=None)
 
-# Simple Redis configuration for Upstash
-CELERY_BROKER_URL = REDIS_URL.replace('redis://', 'rediss://') if 'upstash.io' in REDIS_URL else REDIS_URL
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json' 
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
+# Only configure Celery if Redis URL is available
+if REDIS_URL:
+    # Simple Redis configuration for Upstash
+    CELERY_BROKER_URL = REDIS_URL.replace('redis://', 'rediss://') if 'upstash.io' in REDIS_URL else REDIS_URL
+    CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    CELERY_TASK_SERIALIZER = 'json' 
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TIMEZONE = TIME_ZONE
 
-# Redis SSL configuration for Upstash
-if 'upstash.io' in REDIS_URL:
-    CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
-    CELERY_BROKER_USE_SSL = True
+    # Redis SSL configuration for Upstash
+    if 'upstash.io' in REDIS_URL:
+        CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+        CELERY_BROKER_USE_SSL = True
+else:
+    # Disable Celery when no Redis is available
+    CELERY_TASK_ALWAYS_EAGER = True
 
 # AI API Keys
 ANTHROPIC_API_KEY = config('ANTHROPIC_API_KEY', default='')
